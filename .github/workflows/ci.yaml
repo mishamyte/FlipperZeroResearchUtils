@@ -33,15 +33,4 @@ jobs:
         run: dotnet build --no-restore --configuration Release
 
       - name: Test
-        run: dotnet test --configuration Release --verbosity normal test/FlipperZeroResearchUtils.Tests/FlipperZeroResearchUtils.Tests.fsproj
-
-      - name: List test files
-        if: ${{ failure() }}
-        shell: bash
-        run: |
-          echo "Listing test directory contents:"
-          if [ -d "test/FlipperZeroResearchUtils.Tests/bin/Release/net9.0" ]; then
-            ls -la test/FlipperZeroResearchUtils.Tests/bin/Release/net9.0
-          else
-            echo "Directory not found."
-          fi
+        run: dotnet test --no-build --verbosity normal
