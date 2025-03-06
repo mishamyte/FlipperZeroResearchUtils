@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net9.0</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Compile Include="Common.fs" />
+        <Compile Include="Protocols\GangQi.fs" />
+        <Compile Include="Protocols\DitecDynamic.fs" />
+        <Compile Include="Decoder.fs" />
+        <Compile Include="Program.fs" />
+    </ItemGroup>
+
+</Project>

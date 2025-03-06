@@ -1,0 +1,34 @@
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{32411867-DFE9-41F3-9690-8496E92DDC7C}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FlipperZeroResearchUtils.Tests", "test\FlipperZeroResearchUtils.Tests\FlipperZeroResearchUtils.Tests.fsproj", "{82FF6855-89FC-4EF7-BE33-7C7A3FBFBC7C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{5D94C3F0-72B1-4C23-BB9D-F7CE1BE0B97B}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FlipperZeroResearchUtils", "src\FlipperZeroResearchUtils\FlipperZeroResearchUtils.fsproj", "{741B2D3B-1196-4FC8-BC3A-D86BA082EDF9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9E4F1699-55A4-4C40-BD32-DB780A222A8E}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{82FF6855-89FC-4EF7-BE33-7C7A3FBFBC7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{82FF6855-89FC-4EF7-BE33-7C7A3FBFBC7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{82FF6855-89FC-4EF7-BE33-7C7A3FBFBC7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{82FF6855-89FC-4EF7-BE33-7C7A3FBFBC7C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{741B2D3B-1196-4FC8-BC3A-D86BA082EDF9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{741B2D3B-1196-4FC8-BC3A-D86BA082EDF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{741B2D3B-1196-4FC8-BC3A-D86BA082EDF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{741B2D3B-1196-4FC8-BC3A-D86BA082EDF9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{82FF6855-89FC-4EF7-BE33-7C7A3FBFBC7C} = {32411867-DFE9-41F3-9690-8496E92DDC7C}
+		{741B2D3B-1196-4FC8-BC3A-D86BA082EDF9} = {5D94C3F0-72B1-4C23-BB9D-F7CE1BE0B97B}
+	EndGlobalSection
+EndGlobal
