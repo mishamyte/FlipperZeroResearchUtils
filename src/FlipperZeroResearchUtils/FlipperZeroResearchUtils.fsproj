@@ -9,6 +9,7 @@
         <Compile Include="Common.fs" />
         <Compile Include="Protocols\GangQi.fs" />
         <Compile Include="Protocols\DitecDynamic.fs" />
+        <Compile Include="Protocols\RogerStatic.fs" />
         <Compile Include="Decoder.fs" />
         <Compile Include="Program.fs" />
     </ItemGroup>

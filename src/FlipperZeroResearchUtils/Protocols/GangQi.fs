@@ -42,7 +42,7 @@ module GangQi =
                     Short = 500
                     Long = 1200
                     Gap = 2150
-                    Delta = 100
+                    Delta = { Duration = 100; Gap = 100 }
                 }
             PayloadLength = 34
         }

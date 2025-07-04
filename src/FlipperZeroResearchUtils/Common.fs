@@ -66,23 +66,30 @@ module DurationDecoder =
         | Unknown
 
     [<Struct>]
+    type Delta = { Duration: int; Gap: int }
+
+    [<Struct>]
     type Config =
         {
             Short: int
             Long: int
             Gap: int
-            Delta: int
+            Delta: Delta
         }
 
     let decodeDurations (config: Config) (durations: int array) =
         let (|Short|Long|Gap|Other|) duration =
             let magnitude = abs duration
-            let isInRange target value = abs (target - value) <= config.Delta
+            let isInRange target delta value = abs (target - value) <= delta
 
-            if isInRange config.Short magnitude then Short(duration > 0)
-            elif isInRange config.Long magnitude then Long(duration > 0)
-            elif isInRange config.Gap magnitude then Gap
-            else Other
+            if magnitude |> isInRange config.Short config.Delta.Duration then
+                Short(duration > 0)
+            elif magnitude |> isInRange config.Long config.Delta.Duration then
+                Long(duration > 0)
+            elif magnitude |> isInRange config.Gap config.Delta.Gap then
+                Gap
+            else
+                Other
 
         durations
         |> Array.map (function

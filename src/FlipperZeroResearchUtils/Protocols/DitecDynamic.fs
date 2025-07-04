@@ -11,7 +11,7 @@ module DitecDynamic =
                     Short = 400
                     Long = 1200
                     Gap = 800
-                    Delta = 100
+                    Delta = { Duration = 200; Gap = 200 }
                 }
             PayloadLength = 54
         }
