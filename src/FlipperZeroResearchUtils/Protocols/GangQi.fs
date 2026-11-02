@@ -50,15 +50,22 @@ module GangQi =
     let decode durations =
         let rec decodePayload remainingDurations (currentBits: BitSequence) =
             if currentBits.Length = config.PayloadLength then
-                Some(currentBits), remainingDurations
+                // The payload must end here: on the gap, on noise, or on end of input. A further
+                // bit-shaped duration means these bits were taken mid-stream out of a longer
+                // mis-synchronised burst, which yields a plausible but wrong payload.
+                match remainingDurations with
+                | []
+                | StartBit :: _
+                | Unknown :: _ -> Some(currentBits), remainingDurations
+                | _ -> None, remainingDurations // Payload runs on past the payload length -> trash
             else
                 match remainingDurations with
                 | [] -> None, [] // Payload is not full
-                | (ShortHigh | LongHigh) :: next :: rest when next = Unknown -> None, next :: rest // Unknown value after good -> trash
+                | Unknown :: rest -> None, rest // Corruption inside the payload -> trash
                 | ShortHigh :: rest -> decodePayload rest (currentBits.AddZero()) // ShortHigh -> 0
                 | LongHigh :: rest -> decodePayload rest (currentBits.AddOne()) // LongHigh -> 1
                 | StartBit :: _ -> None, remainingDurations // Unexpected StartBit
-                | _ :: rest -> decodePayload rest currentBits // Skip Low values, caz we don't care
+                | (ShortLow | LongLow) :: rest -> decodePayload rest currentBits // Lows carry no bit
 
         let rec findPayloads remainingDurations payloads =
             match remainingDurations with
