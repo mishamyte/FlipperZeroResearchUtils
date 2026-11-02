@@ -20,9 +20,50 @@ let ``GangQi should be decoded correctly`` () =
     let result = path |> Decoder.decode decoder
 
     result |> should haveLength 12
+    result |> List.distinct |> should equal [ expected ]
 
-    for item in result do
-        item |> should equal expected
+    expected.ToString()
+    |> should
+        equal
+        "Value: 0x1EDA77818; Serial: 0x7B69; Button: 0xE; Checksum: 0x06; Calculated Checksums: [0x06; 0xC4]"
+
+[<Fact>]
+let ``GangQi should split the payload into serial button and checksum`` () =
+    let payload = GangQi.Create(0x123456789UL)
+
+    payload.Serial |> should equal 0x48D1us
+    payload.Button |> should equal 0x9uy
+    payload.Crc |> should equal 0xE2uy
+
+[<Fact>]
+let ``GangQi should verify the checksum`` () =
+    let valid = GangQi.Create(0x1EDA77818UL)
+
+    valid.Crc |> should equal 0x06uy
+    valid.CalculatedCrc |> should equal 0x06uy
+    valid.CalculatedCrc2 |> should equal 0xC4uy
+    valid.IsValid |> should be True
+
+    // The same payload with its checksum off by one.
+    let corrupted = GangQi.Create(0x1EDA7781CUL)
+
+    corrupted.Crc |> should equal 0x07uy
+    corrupted.IsValid |> should be False
+
+[<Fact>]
+let ``GangQi should reject a corrupted payload`` () =
+    // GangQi.sub with its last two frames corrupted in the two ways that each produce a full but
+    // wrong payload under lenient decoding. In both a bit's high pulse is merged into an
+    // out-of-range duration; one then makes the bit count up from a surplus pulse placed before the
+    // gap, the other runs on past the last bit. All three frames must be dropped, leaving 9.
+    let decoder = GangQiDecoder()
+    let path = getFilePath "GangQiCorrupted.sub"
+    let expected = GangQi.Create(0x1EDA77818UL)
+
+    let result = path |> Decoder.decode decoder
+
+    result |> should haveLength 9
+    result |> List.distinct |> should equal [ expected ]
 
 // TODO: Finish test when structure and how dynamic part is encoded will be finished
 [<Fact>]
